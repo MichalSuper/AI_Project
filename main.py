@@ -2,7 +2,6 @@ import threading
 import time
 import winsound
 import cv2
-import argparse
 import numpy as np
 import tkinter as tk
 import requests
@@ -27,17 +26,8 @@ to_number = '+972535212517'
 # Set the message text
 message_text = 'Emergency event!!'
 
-ap = argparse.ArgumentParser()
-ap.add_argument('-c', '--config', required=True,
-                help='path to yolo config file')
-ap.add_argument('-w', '--weights', required=True,
-                help='path to yolo pre-trained weights')
-ap.add_argument('-cl', '--classes', required=True,
-                help='path to text file containing class names')
-args = ap.parse_args()
-
 classes = None
-with open(args.classes, 'r') as f:
+with open('calasses', 'r') as f:
     classes = [line.strip() for line in f.readlines()]
 
 COLORS = np.random.uniform(0, 255, size=(len(classes), 3))
@@ -133,7 +123,7 @@ def people_detection():
 
     cap = cv2.VideoCapture(VIDEO)
 
-    net = cv2.dnn.readNet(args.weights, args.config)
+    net = cv2.dnn.readNet('yolov3.weights', 'cnfg')
 
     count = -1
     persons_frames = 0
